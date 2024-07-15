@@ -1,0 +1,37 @@
+@startuml
+actor User
+participant "Experiment Script" as Script
+participant "Host CPU" as CPU
+participant "CUDA Runtime" as CUDA
+participant "GPU Memory" as GPUMem
+participant "GPU Compute" as GPUCompute
+
+User -> Script: Start Script
+Script -> CPU: Load Images
+CPU -> Script: Images Loaded
+
+Script -> CUDA: Create CUDA Events and Stream
+Script -> CUDA: Record CPU to GPU Event Start
+Script -> GPUMem: Copy U, S, VT Batches to GPU
+Script -> CUDA: Record CPU to GPU Event Stop
+Script -> CUDA: Synchronize Events
+
+Script -> CUDA: Calculate CPU to GPU Communication Time
+
+Script -> GPUCompute: Configure Kernel Execution
+Script -> CUDA: Record Kernel Execution Start
+Script -> GPUCompute: Launch SVD Reconstruction Kernel
+Script -> CUDA: Record Kernel Execution Stop
+Script -> CUDA: Synchronize Events
+
+Script -> CUDA: Calculate Kernel Execution Time
+
+Script -> CUDA: Record GPU to CPU Event Start
+Script -> GPUMem: Copy Reconstructed Images to CPU
+Script -> CUDA: Record GPU to CPU Event Stop
+Script -> CUDA: Synchronize Events
+
+Script -> CUDA: Calculate GPU to CPU Communication Time
+
+Script -> User: Display Benchmark Results
+@enduml

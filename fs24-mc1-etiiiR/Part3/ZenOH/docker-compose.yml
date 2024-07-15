@@ -1,0 +1,44 @@
+version: "3.9"
+services:
+  zenoh:
+    image: eclipse/zenoh:latest
+    restart: unless-stopped
+    ports:
+      - "7447:7447"
+      - "8000:8000"
+    volumes:
+      - "./zenoh_docker:/root/.zenoh"  # Ensure your JSON5 file is within this directory
+    environment:
+      - "RUST_LOG=debug"
+    command: ["-c", "/root/.zenoh/smartstation.json5"]  # Adjust the path to where you've mounted your config file
+
+
+  smartstation_producer:
+    build:
+      context: .
+      dockerfile: Dockerfile.smartstation_pub
+    container_name: smartstation_producer
+
+  smartstation_consumer:
+    build:
+      context: .
+      dockerfile: Dockerfile.smartstation_sub
+    container_name: smartstation_consumer
+    depends_on:
+      - smartstation_producer
+
+  airquality_producer:
+    build:
+      context: .
+      dockerfile: Dockerfil.airquality_pub
+    container_name: airquality_producer
+
+  airquality_consumer:
+    build:
+      context: .
+      dockerfile: Dockerfil.airquality_sub
+    container_name: airquality_consumer
+    depends_on:
+      - smartstation_producer
+
+

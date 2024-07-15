@@ -1,0 +1,37 @@
+{
+  "plugins": {
+    // configuration of "storages" plugin:
+    storage_manager: {
+      volumes: {
+        // configuration of a "rocksdb" volume (the "zenoh_backend_rocksdb" backend library will be loaded at startup)
+        rocksdb: {}
+      },
+      storages: {
+        // configuration of a "demo" storage using the "rocksdb" volume
+        alerts: {
+          key_expr: "environment/air_quality/restricted_areas/**",
+          volume: {
+            id: "rocksdb",
+            dir: "Restricted_Areas",
+            create_db: true
+          }
+        },
+        bus: {
+          // the key expression this storage will subscribes to
+          key_expr: "bus/**",
+          // this prefix will be stripped from the received key when converting to database key.
+          // i.e.: "demo/example/a/b" will be stored as "a/b"
+          volume: {
+            id: "rocksdb",
+            // the RocksDB database will be stored in this directory (relative to ${ZENOH_BACKEND_ROCKSDB_ROOT})
+            dir: "Bus_Station",
+            // create the RocksDB database if not already existing
+            create_db: true
+          }
+        }
+      }
+    },
+    // Optionally, add the REST plugin
+    rest: { http_port: 8000 }
+  }
+}

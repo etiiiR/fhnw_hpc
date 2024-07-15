@@ -1,0 +1,90 @@
+# Created by https://www.toptal.com/developers/gitignore/api/jupyternotebooks
+# Edit at https://www.toptal.com/developers/gitignore?templates=jupyternotebooks
+
+### JupyterNotebooks ###
+# gitignore template for Jupyter Notebooks
+# website: http://jupyter.org/
+
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Remove previous ipynb_checkpoints
+#   git rm -r .ipynb_checkpoints/
+
+# End of https://www.toptal.com/developers/gitignore/api/jupyternotebooks
+
+adni_png/001/m1-1_slice125.png
+adni_png/001/m1-1_slice130.png
+adni_png/001/m1-1_slice135.png
+adni_png/001/m1-1_slice140.png
+adni_png/001/m1-1_slice145.png
+adni_png/001/m1-2_slice125.png
+adni_png/001/m1-2_slice130.png
+adni_png/001/m1-2_slice135.png
+adni_png/001/m1-2_slice140.png
+adni_png/001/m1-2_slice145.png
+adni_png/001/m3-1_slice125.png
+adni_png/001/m3-1_slice130.png
+adni_png/001/m3-1_slice135.png
+adni_png/001/m3-1_slice140.png
+adni_png/001/m3-1_slice145.png
+adni_png/001/m3-2_slice125.png
+adni_png/001/m3-2_slice130.png
+adni_png/001/m3-2_slice135.png
+adni_png/001/m3-2_slice140.png
+adni_png/001/m3-2_slice145.png
+adni_png/001/m4-1_slice125.png
+adni_png/001/m4-1_slice130.png
+adni_png/001/m4-1_slice135.png
+adni_png/001/m4-1_slice140.png
+adni_png/001/m4-1_slice145.png
+adni_png/001/m4-2_slice125.png
+adni_png/001/m4-2_slice130.png
+adni_png/001/m4-2_slice135.png
+adni_png/001/m4-2_slice140.png
+adni_png/001/m4-2_slice145.png
+adni_png/001/m6-1_slice125.png
+adni_png/001/m6-1_slice130.png
+adni_png/001/m6-1_slice135.png
+adni_png/001/m6-1_slice140.png
+adni_png/001/m6-1_slice145.png
+adni_png/002/f1-1_slice125.png
+adni_png/002/f1-1_slice130.png
+adni_png/002/f1-1_slice135.png
+adni_png/002/f1-1_slice140.png
+adni_png/002/f1-1_slice145.png
+adni_png/002/f1-2_slice125.png
+adni_png/002/f1-2_slice130.png
+adni_png/002/f1-2_slice135.png
+adni_png/002/f1-2_slice140.png
+adni_png/002/f1-2_slice145.png
+adni_png/002/f3-1_slice125.png
+adni_png/002/f3-1_slice130.png
+adni_png/002/f3-1_slice135.png
+adni_png/002/f3-1_slice140.png
+adni_png/002/f3-1_slice145.png
+adni_png/002/f3-2_slice125.png
+adni_png/002/f3-2_slice130.png
+adni_png/002/f3-2_slice135.png
+adni_png/002/f3-2_slice140.png
+adni_png/002/f3-2_slice145.png
+adni_png/002/f4-1_slice125.png
+adni_png/002/f4-1_slice130.png
+adni_png/002/f4-1_slice135.png
+adni_png/002/f4-1_slice140.png
+adni_png/002/f4-1_slice145.png
+adni_png/002/f4-2_slice125.png
+adni_png/002/f4-2_slice130.png
+adni_png/002/f4-2_slice135.png
+adni_png/002/f4-2_slice140.png
+adni_png/002/f4-2_slice145.png
+adni_png/002/f6-1_slice125.png
+adni_png/002/f6-1_slice130.png
+adni_png/002/f6-1_slice135.png
+adni_png/002/f6-1_slice140.png
+adni_png/002/f6-1_slice145.png
+nsys-report-48be.nsys-rep

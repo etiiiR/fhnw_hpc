@@ -1,0 +1,874 @@
+version: '3.8'
+services:
+  kafka1:
+    image: confluentinc/cp-kafka
+    container_name: kafka1
+    hostname: kafka1
+    ports:
+    - 19092:19092
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_LISTENERS: INTERNAL://:9092,CONTROLLER://:9093,EXTERNAL://:19092
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka1:9092,EXTERNAL://localhost:19092
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka1:9093,2@kafka2:9093,3@kafka3:9093
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      CLUSTER_ID: BDb4EWyiS1GjcEKCew2HvQ
+      KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
+  kafka2:
+    image: confluentinc/cp-kafka
+    container_name: kafka2
+    hostname: kafka2
+    ports:
+    - 19093:19093
+    environment:
+      KAFKA_NODE_ID: 2
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_LISTENERS: INTERNAL://:9092,CONTROLLER://:9093,EXTERNAL://:19093
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka2:9092,EXTERNAL://localhost:19093
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka1:9093,2@kafka2:9093,3@kafka3:9093
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      CLUSTER_ID: BDb4EWyiS1GjcEKCew2HvQ
+      KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
+  kafka3:
+    image: confluentinc/cp-kafka
+    container_name: kafka3
+    hostname: kafka3
+    ports:
+    - 19094:19094
+    environment:
+      KAFKA_NODE_ID: 3
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_LISTENERS: INTERNAL://:9092,CONTROLLER://:9093,EXTERNAL://:19094
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka3:9092,EXTERNAL://localhost:19094
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka1:9093,2@kafka2:9093,3@kafka3:9093
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      CLUSTER_ID: BDb4EWyiS1GjcEKCew2HvQ
+      KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
+  kafdrop:
+    image: obsidiandynamics/kafdrop:latest
+    container_name: kafdrop1
+    ports:
+    - 9000:9000
+    environment:
+      KAFKA_BROKERCONNECT: kafka1:9092,kafka2:9092,kafka3:9092
+      SERVER_SERVLET_CONTEXTPATH: /
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus1:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus1
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus2:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus2
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus3:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus3
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus4:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus4
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus5:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus5
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus6:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus6
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus7:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus7
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus8:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus8
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus9:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus9
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus10:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus10
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus11:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus11
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus12:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus12
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus13:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus13
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus14:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus14
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus15:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus15
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus16:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus16
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus17:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus17
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus18:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus18
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus19:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus19
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus20:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus20
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus21:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus21
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus22:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus22
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus23:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus23
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus24:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus24
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus25:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus25
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus26:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus26
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus27:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus27
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus28:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus28
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus29:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus29
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus30:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus30
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus31:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus31
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus32:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus32
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus33:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus33
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus34:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus34
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus35:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus35
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus36:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus36
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus37:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus37
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus38:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus38
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus39:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus39
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus40:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus40
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus41:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus41
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus42:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus42
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus43:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus43
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus44:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus44
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus45:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus45
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus46:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus46
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus47:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus47
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus48:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus48
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus49:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus49
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus50:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus50
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus51:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus51
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus52:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus52
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus53:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus53
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus54:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus54
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus55:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus55
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus56:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus56
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus57:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus57
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus58:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus58
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus59:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus59
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus60:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus60
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus61:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus61
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus62:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus62
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus63:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus63
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus64:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus64
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus65:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus65
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus66:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus66
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus67:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus67
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus68:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus68
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus69:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus69
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus70:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus70
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus71:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus71
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus72:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus72
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus73:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus73
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus74:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus74
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus75:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus75
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus76:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus76
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus77:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus77
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus78:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus78
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus79:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus79
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus80:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus80
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus81:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus81
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus82:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus82
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus83:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus83
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus84:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus84
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus85:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus85
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus86:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus86
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus87:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus87
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus88:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus88
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus89:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus89
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus90:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus90
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus91:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus91
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus92:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus92
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus93:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus93
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus94:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus94
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus95:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus95
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus96:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus96
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus97:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus97
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus98:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus98
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus99:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus99
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3
+  bus100:
+    image: smart_bus_image
+    environment:
+      BUS_ID: bus100
+    depends_on:
+    - kafka1
+    - kafka2
+    - kafka3

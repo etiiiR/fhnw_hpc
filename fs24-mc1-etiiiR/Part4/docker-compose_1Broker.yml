@@ -1,0 +1,36 @@
+version: '3'
+services:
+  kafka1:
+    image: confluentinc/cp-kafka
+    container_name: kafka1
+    hostname: kafka1
+    ports:
+      - "19092:19092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT'
+      KAFKA_LISTENERS: 'INTERNAL://:9092,CONTROLLER://:9093,EXTERNAL://:19092'
+      KAFKA_ADVERTISED_LISTENERS: 'INTERNAL://kafka1:9092,EXTERNAL://localhost:19092'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'INTERNAL'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka1:9093'
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      CLUSTER_ID: 'BDb4EWyiS1GjcEKCew2HvQ'
+      KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop:latest
+    container_name: kafdrop1
+    ports:
+      - "900:9000"  # Corrected port mapping to match standard Kafdrop port
+    environment:
+      KAFKA_BROKERCONNECT: "kafka1:9092"  # Adjusted for consistency
+      KAFDROP_PROTOBUF_DESC_DIR: "/descriptors"  # Environment variable pointing to the descriptor folder
+      CMD_ARGS: "--message.format=PROTOBUF --protobufdesc.directory=./descriptors"  # Adjusted for consistency
+    volumes:
+      - ./descriptors:/descriptors  # Mounting the local descriptor folder to the container
+    depends_on: 
+      - kafka1

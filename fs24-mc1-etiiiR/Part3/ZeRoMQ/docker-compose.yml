@@ -1,0 +1,84 @@
+version: '3.8'
+
+services:
+  surrealdb:
+    image: surrealdb/surrealdb:latest
+    container_name: surrealdb
+    restart: always
+    networks:
+      zmq_network:
+        aliases:
+          - surrealdb
+    command: start --user etiiir --pass Welcome12 file:/data/database.db
+    ports:
+      - 8000:8000
+    volumes:
+      - ./data:/data
+
+
+  smartstation_consumer:
+    build:
+      context: .
+      dockerfile: Dockerfile.smartstation_consumer
+    container_name: smartstation_consumer
+    networks:
+      - zmq_network
+    depends_on:
+      - smartstation_producer
+
+  smartstation_producer:
+    build:
+      context: .
+      dockerfile: Dockerfile.smartstation_producer
+    container_name: smartstation_producer
+    networks:
+      - zmq_network
+
+  smartbus_processor:
+    build:
+      context: .
+      dockerfile: Dockerfile.smartbus_processor
+    container_name: smartbus_processor
+    networks:
+      - zmq_network
+    depends_on:
+      - smartbus_publisher
+
+  smartbus_publisher:
+    build:
+      context: .
+      dockerfile: Dockerfile.smartbus_publisher
+    container_name: smartbus_publisher
+    networks:
+      - zmq_network
+    
+
+  airquality_producer:
+    build:
+      context: .
+      dockerfile: Dockerfile.airquality_producer
+    container_name: airquality_producer
+    networks:
+      - zmq_network
+
+  airquality_persister:
+    build:
+      context: .
+      dockerfile: Dockerfile.airquality_persister
+    container_name: airquality_persister
+    networks:
+      - zmq_network
+    volumes:
+      - ./data:/usr/src/app/data
+
+  airquality_processor:
+    build:
+      context: .
+      dockerfile: Dockerfile.airquality_processor
+    container_name: airquality_processor
+    networks:
+      - zmq_network
+
+networks:
+  zmq_network:
+    driver: bridge

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Real-Time Bus Tracker</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+        #map {
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+        var map = L.map('map').setView([47.5596, 7.5886], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var markers = []; // Array to keep track of markers
+
+        var ws = new WebSocket("ws://localhost:3333/ws");
+
+
+        ws.onopen = function (event) {
+            console.log("WebSocket is open now.");
+        };
+
+        ws.onerror = function (event) {
+            console.error("WebSocket error observed:", event);
+        };
+
+        ws.onclose = function (event) {
+            console.log("WebSocket is closed now.");
+        };
+
+
+        ws.onmessage = function (event) {
+            var data = JSON.parse(event.data);
+
+            // Check and remove the first 100 markers if total markers exceed 100
+            if (markers.length >= 100) {
+                for (let i = 0; i < 100; i++) {
+                   map.removeLayer(markers[i]);
+                }
+                markers = markers.slice(100); // Keep the last set of markers, remove the first 100
+            }
+
+            // Add new marker
+            var marker = L.marker([data.location.lat, data.location.lon]).addTo(map);
+            markers.push(marker); // Keep track of the new marker
+        };
+
+
+    </script>
+</body>
+
+</html>

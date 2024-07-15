@@ -1,0 +1,6 @@
+imageio
+numpy
+matplotlib
+scikit-image
+numba
+jupyterlab-nvidia-nsight

@@ -1,0 +1,16 @@
+# Use an official Python runtime as a parent image
+FROM python:3.11
+
+# Set the working directory in the container
+WORKDIR /usr/src/app
+
+# Copy the publisher script into the container
+COPY SmartStation_Pub.py .
+
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir eclipse-zenoh==0.10.1rc0 
+
+# Run SmartBus_Publisher.py when the container launches
+CMD ["python", "./SmartStation_Pub.py"]
+
+

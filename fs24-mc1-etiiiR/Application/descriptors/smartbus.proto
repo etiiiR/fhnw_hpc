@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package smartbus;
+
+// Define a simple message for GPS location
+message Location {
+  double lat = 1; // Latitude
+  double lon = 2; // Longitude
+}
+
+// Define a message for BlackBox data
+message BlackBox {
+  double acceleration = 1; // Acceleration in m/s^2
+  double braking = 2; // Braking force in m/s^2
+  double fuel_consumption = 3; // Fuel consumption in liters per hour
+  double tire_pressure = 4; // Tire pressure in bar
+  repeated int32 error_codes = 5; // Error codes captured by the black box
+}
+
+// Main message structure for BusData
+message BusData {
+  string bus_id = 1; // Unique identifier for the bus
+  string bus_type = 2; // Type of bus, e.g., conventional, electric
+  Location location = 3; // Current location of the bus
+  int32 bus_capacity = 4; // Maximum capacity of the bus
+  int32 people_in_bus = 5; // Current number of people in the bus
+  double driving_time = 6; // Total driving time in hours
+  double driving_speed = 7; // Current driving speed in km/h
+  double engine_temperature = 8; // Engine temperature in degrees Celsius
+  double timestamp = 9; // Timestamp when the data was collected
+  BlackBox black_box = 10; // Nested BlackBox message
+
+  // Conditional fields based on bus type
+  oneof power_source {
+    double fuel_level = 11; // Fuel level for conventional buses
+    double battery_level = 12; // Battery level for electric buses
+  }
+}

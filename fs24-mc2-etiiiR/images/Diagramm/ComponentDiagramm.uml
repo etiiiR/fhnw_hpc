@@ -1,0 +1,94 @@
+@startuml
+package "Image Reconstruction" {
+
+    component "Main" {
+        note right of Main
+            Main script coordinating the entire process
+        end note
+    }
+
+    component "ImageLoader" {
+        note right of ImageLoader
+            - Loads images from a specified folder
+            - Converts them into numpy arrays
+        end note
+    }
+
+    component "SVDComputation" {
+        note right of SVDComputation
+            - Computes Singular Value Decomposition (SVD) for each image
+            - Outputs U, S, VT matrices
+        end note
+    }
+
+    component "GPUSVDReconstruction" {
+        note right of GPUSVDReconstruction
+            - Reconstructs images using GPU
+            - Utilizes CuPy for GPU operations
+            - Implements CUDA kernels for SVD
+        end note
+    }
+
+    component "ImageScaler" {
+        note right of ImageScaler
+            - Scales images to a specified factor
+        end note
+    }
+
+    component "GPUUsageMonitor" {
+        note right of GPUUsageMonitor
+            - Monitors GPU usage during processing
+            - Collects usage data at regular intervals
+        end note
+    }
+
+    component "ImagePlotter" {
+        note right of ImagePlotter
+            - Plots original and reconstructed images
+            - Displays GPU usage data
+        end note
+    }
+
+    Main --> ImageScaler : invokes
+    ImageScaler --> ImageLoader : scales images before loading
+    Main --> ImageLoader : invokes
+    ImageLoader --> SVDComputation : loads images for SVD
+    SVDComputation --> GPUSVDReconstruction : provides U, S, VT matrices
+    GPUSVDReconstruction --> ImagePlotter : provides reconstructed images
+    GPUSVDReconstruction --> GPUUsageMonitor : notifies for monitoring
+    GPUUsageMonitor --> ImagePlotter : provides GPU usage data
+    Main --> ImagePlotter : invokes for final visualization
+
+}
+
+package "Utilities" {
+    component "Numpy" {
+        note right of Numpy
+            - Used for numerical computations
+            - Handles array and matrix operations
+        end note
+    }
+
+    component "CuPy" {
+        note right of CuPy
+            - Used for GPU-accelerated computations
+            - Provides GPU array and matrix operations
+        end note
+    }
+
+    component "Matplotlib" {
+        note right of Matplotlib
+            - Used for plotting images and graphs
+            - Handles visualization
+        end note
+    }
+
+    Main --> Numpy : utilizes
+    Main --> CuPy : utilizes
+    Main --> Matplotlib : utilizes
+    SVDComputation --> Numpy : performs computations
+    GPUSVDReconstruction --> CuPy : performs GPU computations
+    ImagePlotter --> Matplotlib : plots results
+}
+
+@enduml

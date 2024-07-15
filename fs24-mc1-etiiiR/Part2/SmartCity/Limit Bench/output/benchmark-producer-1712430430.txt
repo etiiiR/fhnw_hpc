@@ -1,0 +1,4 @@
+## 2024-04-06_19:07:11=>start-perf-test
+## 2024-04-06_19:07:11=>/usr/bin/kafka-producer-perf-test --topic benchmark-r2-p2-1712430430     --num-records 100000     --record-size 1024     --throughput -1     --producer-props acks=1 compression.type=none bootstrap.servers=kafka1:9092,kafka2:9092,kafka3:9092 
+## 100000 records sent, 74850.299401 records/sec (73.10 MB/sec), 256.83 ms avg latency, 391.00 ms max latency, 280 ms 50th, 338 ms 95th, 376 ms 99th, 389 ms 99.9th.
+## 2024-04-06_19:07:13=>end-perf-test

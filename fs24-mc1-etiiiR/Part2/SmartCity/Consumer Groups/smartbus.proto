@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package smartbus;
+
+// Define a message for the location data
+message Location {
+  double lat = 1; // Latitude
+  double lon = 2; // Longitude
+}
+
+// Define a message for the black box data
+message BlackBox {
+  float acceleration = 1; // Acceleration in m/s^2
+  float braking = 2; // Braking in m/s^2
+  float fuel_consumption = 3; // Fuel consumption in L/100km
+  float tire_pressure = 4; // Tire pressure in bar
+  repeated int32 error_codes = 5; // List of error codes
+}
+
+// Define the main bus data message
+message BusData {
+  string bus_id = 1; // Unique identifier for the bus
+  string bus_type = 2; // Type of the bus (conventional, electric)
+  Location location = 3; // Nested message for location
+  int32 bus_capacity = 4; // Capacity of the bus
+  int32 people_in_bus = 5; // Number of people currently in the bus
+  float driving_time = 6; // Driving time in hours
+  float driving_speed = 7; // Driving speed in km/h
+  float engine_temperature = 8; // Engine temperature in Celsius
+  double timestamp = 9; // Timestamp of the data
+  BlackBox black_box = 10; // Nested message for black box data
+  oneof power_source {
+    float fuel_level = 11; // Fuel level for conventional buses
+    float battery_level = 12; // Battery level for electric buses
+  }
+}
